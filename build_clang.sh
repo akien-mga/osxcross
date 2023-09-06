@@ -156,6 +156,11 @@ if ([[ $CLANG_VERSION == 9* ]] || [[ $CLANG_VERSION == 8* ]]); then
 \ #include <string>/' *llvm*/llvm/include/llvm/Demangle/MicrosoftDemangleNodes.h
 fi
 
+# Workaround https://github.com/tpoechtrager/cctools-port/issues/102
+pushd *llvm*
+patch -p1 < $PATCH_DIR/clang-recognize-arm64-ios-simulator.patch
+popd
+
 function build()
 {
   stage=$1

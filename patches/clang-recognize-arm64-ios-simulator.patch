@@ -1,0 +1,13 @@
+diff --git a/clang/lib/Driver/ToolChains/Darwin.cpp b/clang/lib/Driver/ToolChains/Darwin.cpp
+index 11799b0..cee6745 100644
+--- a/clang/lib/Driver/ToolChains/Darwin.cpp
++++ b/clang/lib/Driver/ToolChains/Darwin.cpp
+@@ -2330,7 +2330,7 @@ void Darwin::AddDeploymentTarget(DerivedArgList &Args) const {
+   DarwinEnvironmentKind Environment = OSTarget->getEnvironment();
+   // Recognize iOS targets with an x86 architecture as the iOS simulator.
+   if (Environment == NativeEnvironment && Platform != MacOS &&
+-      OSTarget->canInferSimulatorFromArch() && getTriple().isX86())
++      OSTarget->canInferSimulatorFromArch() && OSTarget->getAsString(Args, Opts).find("simulator") != std::string::npos)
+     Environment = Simulator;
+ 
+   VersionTuple NativeTargetVersion;
